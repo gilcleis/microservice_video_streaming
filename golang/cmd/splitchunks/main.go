@@ -10,8 +10,6 @@ import (
 
 const chunkSize = 1 * 1024 * 1024
 
-// Programa auxiliar para dividir um arquivo em chunks no formato *.chunk
-// basta chamar: go run main.go <mp4-file-path>
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run main.go <mp4-file-path>")
