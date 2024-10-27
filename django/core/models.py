@@ -11,10 +11,8 @@ def random_filename(instance, filename):
     
     # Usa o timestamp atual e o nome original para gerar o hash simples
     hash_object = hashlib.md5(f"{filename}{time.time()}".encode('utf-8'))
-    hashed_filename = f"{hash_object.hexdigest()}.{ext}"
+    return f"{hash_object.hexdigest()}.{ext}"
 
-    # Retorna o caminho completo dentro da pasta 'thumbnails/'
-    return os.path.join('/media/uploads', hashed_filename)
 
 # Create your models here.
 class Video(models.Model):
@@ -27,26 +25,7 @@ class Video(models.Model):
     num_likes = models.IntegerField(default=0, verbose_name='Likes', editable=False)
     num_views = models.IntegerField(default=0, verbose_name='Visualizações', editable=False)
     tags = models.ManyToManyField('Tag', verbose_name='Tags', related_name='videos')
-    author = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name='Autor', related_name='videos', editable=False, null=True)
-
-    def save(
-        self,
-        force_insert=False,
-        force_update=False,
-        using=None,
-        update_fields=None,
-    ):
-        if self.is_published and not self.published_at:
-            self.published_at = timezone.now()
-        return super().save(force_insert, force_update, using, update_fields)
-
-    def clean(self):
-        if self.is_published:
-            if not hasattr(self, 'video_media'):
-                raise ValidationError('O vídeo não possui mídia associada.')
-            if self.video_media.status != VideoMedia.Status.PROCESS_FINISHED:
-                raise ValidationError('O vídeo não foi processado.')
-
+    author = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name='Autor', related_name='videos', editable=False)
 
     def save(
         self,

@@ -7,6 +7,9 @@ const nextConfig = {
         remotePatterns: [
             {
                 hostname: 'localhost'
+            },
+            {
+                hostname: 'host.docker.internal'
             }
         ]
     }
