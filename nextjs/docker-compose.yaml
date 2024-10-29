@@ -6,7 +6,7 @@ services:
     environment:
       - DJANGO_API_URL=http://host.docker.internal:8000/api
     ports:
-      - 3000:3000
+      - 3001:3000
     extra_hosts:
       - "host.docker.internal:host-gateway"
 

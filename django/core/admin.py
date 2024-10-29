@@ -1,14 +1,19 @@
 import traceback
 from typing import Any
+
+from core.form import VideoChunkFinishUploadForm, VideoChunkUploadForm
+from core.models import Tag, Video
+from core.services import (VideoChunkUploadException,
+                           VideoMediaInvalidStatusException,
+                           VideoMediaNotExistsException,
+                           create_video_service_factory)
+
 from django.contrib import admin, messages
 from django.contrib.auth.admin import csrf_protect_m
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
 from django.urls import path, reverse
 from django.utils.html import format_html
-from core.form import VideoChunkFinishUploadForm, VideoChunkUploadForm
-from core.models import Video, Tag
-from core.services import VideoChunkUploadException, VideoMediaInvalidStatusException, VideoMediaNotExistsException, create_video_service_factory
 
 # class VideoMediaInline(admin.StackedInline):
 #     model = VideoMedia
@@ -54,7 +59,7 @@ class VideoAdmin(admin.ModelAdmin):
 
     def redirect_to_upload(self, obj: Video):
         url = reverse('admin:core_video_upload', args=[obj.id])
-        return format_html(f'<a href="{url}">Upload</a>')
+        return format_html(f'<a href="{url}">📼</a>')
 
     redirect_to_upload.short_description = 'Upload'
     

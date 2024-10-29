@@ -13,9 +13,6 @@ import (
 	"imersaofc/internal/converter"
 	"imersaofc/pkg/log"
 	"imersaofc/pkg/rabbitmq"
-
-	"imersaofc/pkg/rabbitmq"
-
 	_ "github.com/lib/pq"
 	"github.com/streadway/amqp"
 )
